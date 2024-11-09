@@ -1,20 +1,31 @@
-import Input from "./components/Input";
+import { useState } from "react";
 
 const App = () => {
+  const [input, setInput] = useState("");
+  const [todos, setTodos] = useState([]);
+
+  const handleInput = (event) => {
+    // console.log(event.target.value);
+    setInput(event.target.value);
+  };
+
+  const handleAdd = () => {
+    setTodos([input, ...todos]);
+    setInput(""); // clear input
+  };
+
   return (
     <div>
-      <Input />
-
       <div>
-        <input type="text" className="input" placeholder="Enter text"></input>
-        <button>Add</button>
+        <input type="text" value={input} onChange={handleInput} className="input" placeholder="Enter text" />
+        <button onClick={handleAdd}>Add</button>
       </div>
 
       <div>
         <ul>
-          <li>Task 1</li>
-          <li>Task 2 </li>
-          <li>Task 3</li>
+          {todos.map((todo, index) => (
+            <li key={index}>{todo}</li>
+          ))}
         </ul>
       </div>
     </div>
@@ -22,3 +33,6 @@ const App = () => {
 };
 
 export default App;
+
+// controlled component
+// un-controlled component
