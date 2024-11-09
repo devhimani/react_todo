@@ -14,12 +14,18 @@ const App = () => {
     setInput(""); // clear input
   };
 
+  const handleSubmitForm = (event) => {
+    event.preventDefault();
+    // console.log("form submitted");
+  };
+
   return (
     <div>
-      <div>
+      <form onSubmit={handleSubmitForm}>
         <input type="text" value={input} onChange={handleInput} className="input" placeholder="Enter text" />
         <button onClick={handleAdd}>Add</button>
-      </div>
+        {/* <input type="submit" onClick={handleAdd} value="Add" /> */}
+      </form>
 
       <div>
         <ul>
