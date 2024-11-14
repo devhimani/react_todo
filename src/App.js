@@ -4,6 +4,8 @@ import "./App.css";
 const App = () => {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
+  const [newTodoValue, setNewTodoValue] = useState("");
 
   const handleInput = (event) => {
     // console.log(event.target.value);
@@ -21,6 +23,15 @@ const App = () => {
     setTodos(todos.filter((todo, index) => index !== clickedIndex));
   };
 
+  const handleUpdateTodo = (clickedIndex) => {
+    // console.log(clickedIndex);
+    // console.log(newTodoValue);
+    const newTodos = todos.map((todo, index) => (clickedIndex === index ? newTodoValue : todo));
+    // console.log(newTodos);
+    setTodos(newTodos);
+    setEditIndex(null);
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmitForm}>
@@ -32,8 +43,28 @@ const App = () => {
         <ul>
           {todos.map((todo, index) => (
             <li key={index} className="todo-item">
-              <p>{todo}</p>
-              <button onClick={() => handleDelete(index)}>Delete</button>
+              {editIndex === index ? (
+                <input type="text" value={newTodoValue} onChange={(e) => setNewTodoValue(e.target.value)} />
+              ) : (
+                <p>{todo}</p>
+              )}
+
+              <div>
+                {editIndex === index ? (
+                  <button onClick={() => handleUpdateTodo(index)}>Update</button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setEditIndex(index);
+                      setNewTodoValue(todo);
+                    }}
+                  >
+                    Edit
+                  </button>
+                )}
+
+                <button onClick={() => handleDelete(index)}>Delete</button>
+              </div>
             </li>
           ))}
         </ul>
@@ -44,5 +75,8 @@ const App = () => {
 
 export default App;
 
-// controlled component
-// un-controlled component
+/**
+ * create edit button > add onClick handler > setEditIndex (which index to edit)
+ * match todos index with clickedIndex > show input box & show update button instead of edit button
+ * click update button > set new todo value in the same index todo value
+ */
