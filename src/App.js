@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./App.css";
 
 const App = () => {
   const [input, setInput] = useState("");
@@ -12,12 +13,21 @@ const App = () => {
   const handleAdd = () => {
     // setTodos([input, ...todos]);
     setTodos([...todos, input]);
-    setInput("");
+    setInput(""); // to clear input
   };
 
-  handleSubmitForm = (e) => {
+  const handleSubmitForm = (e) => {
     e.preventDefault();
     console.log("form submitted");
+  };
+
+  const handleDelete = (clickedIndex) => {
+    // const newTodos = todos.filter((todo, index) => {
+    //   console.log(todo, index, clickedIndex);
+    //   return index !== clickedIndex;
+    // });
+    // console.log(newTodos);
+    setTodos(todos.filter((_todo, index) => index !== clickedIndex));
   };
 
   return (
@@ -45,7 +55,11 @@ const App = () => {
       <div>
         <ul>
           {todos.map((todo, index) => (
-            <li key={index}>{todo}</li>
+            // <li key={index}>{todo}</li>
+            <li key={index} className="todo-item">
+              <p>{todo}</p>
+              <button onClick={() => handleDelete(index)}>Delete</button>
+            </li>
           ))}
         </ul>
       </div>
