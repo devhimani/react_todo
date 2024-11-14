@@ -10,23 +10,14 @@ const App = () => {
     setInput(event.target.value);
   };
 
-  const handleAdd = () => {
+  const handleSubmitForm = (event) => {
+    event.preventDefault();
+
     setTodos([...todos, input]);
     setInput(""); // clear input
   };
 
-  const handleSubmitForm = (event) => {
-    event.preventDefault();
-    // console.log("form submitted");
-  };
-
   const handleDelete = (clickedIndex) => {
-    // console.log(clickedIndex);
-    // const newTodos = todos.filter((todo, index) => {
-    //   console.log(todo, index, clickedIndex);
-    //   return index !== clickedIndex;
-    // });
-    // console.log(newTodos);
     setTodos(todos.filter((todo, index) => index !== clickedIndex));
   };
 
@@ -34,8 +25,7 @@ const App = () => {
     <div>
       <form onSubmit={handleSubmitForm}>
         <input type="text" value={input} onChange={handleInput} className="input" placeholder="Enter text" />
-        <button onClick={handleAdd}>Add</button>
-        {/* <input type="submit" onClick={handleAdd} value="Add" /> */}
+        <button>Add</button>
       </form>
 
       <div>
