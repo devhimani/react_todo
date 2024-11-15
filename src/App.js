@@ -10,14 +10,11 @@ const App = () => {
     // console.log(event);
   };
 
-  const handleAdd = () => {
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
     // setTodos([input, ...todos]);
     setTodos([...todos, input]);
     setInput(""); // to clear input
-  };
-
-  const handleSubmitForm = (e) => {
-    e.preventDefault();
     console.log("form submitted");
   };
 
@@ -39,19 +36,8 @@ const App = () => {
           placeholder="Enter text"
           onChange={handleInput}
         />
-        <button onClick={handleAdd}>Add</button>
+        <button>Add</button>
       </form>
-      <div>
-        {/* <input
-          type="text"
-          value={input}
-          className="input"
-          placeholder="Enter text"
-          onChange={handleInput}
-        /> */}
-        {/* <button onClick={handleAdd}>Add</button> */}
-        {/* <input type="submit" onClick={handleAdd} value="Add" /> */}
-      </div>
       <div>
         <ul>
           {todos.map((todo, index) => (
