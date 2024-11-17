@@ -5,6 +5,7 @@ p {
 .todo-item {
   display: flex;
   gap: 90pt;
+  justify-content: space-between;
 }
 
 /* */
