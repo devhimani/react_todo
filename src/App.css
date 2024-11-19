@@ -6,3 +6,13 @@ p {
   display: flex;
   justify-content: space-between;
 }
+
+.todo {
+  display: flex;
+  align-items: center;
+}
+
+.done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}

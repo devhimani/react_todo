@@ -15,7 +15,7 @@ const App = () => {
   const handleSubmitForm = (event) => {
     event.preventDefault();
 
-    setTodos([...todos, input]);
+    setTodos([...todos, { id: Date.now(), name: input, isCompleted: false }]);
     setInput(""); // clear input
   };
 
@@ -32,6 +32,13 @@ const App = () => {
     setEditIndex(null);
   };
 
+  const handleIsCompleted = (clickedIndex) => {
+    const updatedTodos = todos.map((todo, index) =>
+      index === clickedIndex ? { ...todo, isCompleted: !todo.isCompleted } : todo
+    );
+    setTodos(updatedTodos);
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmitForm}>
@@ -46,7 +53,10 @@ const App = () => {
               {editIndex === index ? (
                 <input type="text" value={newTodoValue} onChange={(e) => setNewTodoValue(e.target.value)} />
               ) : (
-                <p>{todo}</p>
+                <div className={`todo ${todo.isCompleted ? "done" : ""}`}>
+                  <input type="checkbox" checked={todo.isCompleted} onClick={() => handleIsCompleted(index)} />
+                  <p>{todo.name}</p>
+                </div>
               )}
 
               <div>
@@ -80,3 +90,17 @@ export default App;
  * match todos index with clickedIndex > show input box & show update button instead of edit button
  * click update button > set new todo value in the same index todo value
  */
+
+// [
+//   { id: 85643, name: "task1", isCompleted: false },
+//   { id: 85643, name: "task2", isCompleted: true },
+//   "task3"
+// ];
+
+// const a = "hello";
+// const b = {
+//   name: "hello",
+//   age: 20,
+// };
+
+// map function -> takes a array -> modify it -> return a new Array
