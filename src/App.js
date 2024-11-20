@@ -15,7 +15,10 @@ const App = () => {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     // setTodos([input, ...todos]);
-    setTodos([...todos, input]);
+    setTodos([
+      ...todos,
+      { id: Date.now(), name: input, isCheckCompleted: false }, // 10 unique date time with input & checkbox set  false
+    ]);
     setInput(""); // to clear input
     console.log("form submitted");
   };
@@ -33,7 +36,18 @@ const App = () => {
     setTodos(
       todos.map((todo, index) => (clickedIndex === index ? newTodoValue : todo)) // 6 to update
     );
-    setEditIndex(null); // 7 to  remove input box  after updating value.
+    setEditIndex(null); // 8 to  remove input box  after updating value.
+  };
+
+  // 13 checkbox handling with index
+  const handleIsCompleted = (clickedIndex) => {
+    setTodos(
+      todos.map((todo, index) =>
+        index === clickedIndex
+          ? { ...todo, isCheckCompleted: !todo.isCheckCompleted }
+          : todo
+      )
+    );
   };
 
   return (
@@ -58,7 +72,21 @@ const App = () => {
                   onChange={(e) => setNewTodoValue(e.target.value)} //
                 />
               ) : (
-                <p>{todo}</p>
+                <div
+                  className={`todo-checkbox ${
+                    todo.isCheckCompleted ? "done" : ""
+                  }`} // 14 css apply
+                >
+                  <input
+                    type="checkbox"
+                    checked={todo.isCheckCompleted}
+                    onClick={() => handleIsCompleted(index)}
+                  />
+                  <p>{todo.name}</p>
+                </div>
+                //9 Checkbox added with todo list.
+                // 11 todo changed with todo.name
+                // 12 checkbox set  as false & handleOnClick is add with checkbx
               )}
               {/* // 2 check the editIndex to show input box or todo list 
                4 add value = newTodoValue 
@@ -79,7 +107,7 @@ const App = () => {
                     Edit
                   </button>
                 )}
-                {/* // 1 setEditindex is imp to show inpu tbox by clicking on edit
+                {/* // 1 setEditindex is imp to show input box by clicking on edit
                 imp */}
                 <button onClick={() => handleDelete(index)}>Delete</button>
               </div>
@@ -92,3 +120,5 @@ const App = () => {
 };
 
 export default App;
+
+// // map function -> takes a array -> modify it -> return a new Array
